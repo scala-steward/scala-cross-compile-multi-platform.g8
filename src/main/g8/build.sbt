@@ -1,4 +1,5 @@
 import sbtcrossproject.CrossProject
+import scala.scalanative.build._
 
 val Scala212 = "2.12.17"
 val Scala213 = "2.13.10"
@@ -10,9 +11,6 @@ enablePlugins(ScalaNativePlugin)
 
 // set to Debug for compilation details (Info is default)
 logLevel := Level.Info
-
-// import to add Scala Native options
-import scala.scalanative.build._
 
 lazy val root = project
   .in(file("."))
@@ -33,7 +31,6 @@ lazy val rootJVM =
 lazy val core =
   crossProject(JSPlatform, JVMPlatform, NativePlatform).in(file("core"))
 
-// TODO
 lazy val example = crossProject(JSPlatform, JVMPlatform, NativePlatform)
   .in(file("example"))
   .dependsOn(core)
