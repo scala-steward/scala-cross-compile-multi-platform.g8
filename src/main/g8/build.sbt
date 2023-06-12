@@ -5,6 +5,8 @@ val Scala212 = "2.12.17"
 val Scala213 = "2.13.10"
 val Scala3 = "3.2.2"
 
+val munitVersion = "0.7.29"
+
 ThisBuild / crossScalaVersions := Seq(Scala3, Scala213, Scala213)
 
 enablePlugins(ScalaNativePlugin)
@@ -29,7 +31,11 @@ lazy val rootJVM =
   project.aggregate(jvmProjects: _*)
 
 lazy val core =
-  crossProject(JSPlatform, JVMPlatform, NativePlatform).in(file("core"))
+  crossProject(JSPlatform, JVMPlatform, NativePlatform)
+    .in(file("core"))
+    .settings(
+      libraryDependencies += "org.scalameta" %% "munit" % munitVersion % Test
+    )
 
 lazy val example = crossProject(JSPlatform, JVMPlatform, NativePlatform)
   .in(file("example"))
